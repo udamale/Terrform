@@ -1,0 +1,36 @@
+# Terraform cache
+.terraform/
+
+# State files (includes backups)
+*.tfstate
+*.tfstate.*
+
+# Lock file (metadata, not source)
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
+
+# Variable files (containing sensitive data)
+*.tfvars
+*.tfvars.json
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Override files used locally
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI config
+.terraformrc
+terraform.rc
+
+# Optional: ignore plan output files
+# *.tfplan
+
+# Ignore OS/IDE files
+.DS_Store
+.vscode/
+.idea/
