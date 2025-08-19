@@ -18,6 +18,8 @@ resource "aws_subnet" "name" {
 }
 
 
+
+
 # creation of Intrnet getway
 resource "aws_internet_gateway" "name" {
     vpc_id = aws_vpc.name.id
@@ -45,6 +47,46 @@ resource "aws_route_table_association" "name" {
   route_table_id = aws_route_table.name.id
 }
 
+
+resource "aws_subnet" "private" {
+  vpc_id = aws_vpc.name.id
+  cidr_block = "10.0.1.0/24"
+  tags = {
+    Name="cust-vpc-private-subnet"
+  }
+}
+
+# creation of elastic ip 
+resource "aws_eip" "name" { 
+  
+
+}
+#  Creation of natgetway 
+resource "aws_nat_gateway" "name" {
+  allocation_id = aws_eip.name.id
+  subnet_id = aws_subnet.name.id
+  tags = {
+    Name ="nat-gt"
+  }
+}
+
+#creation of private route-table
+resource "aws_route_table" "private" {
+ vpc_id = aws_vpc.name.id
+ tags = {
+   Name="private-rt"
+ }
+ route {
+  cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.name.id
+ }
+}
+
+# creation of private subnet association
+resource "aws_route_table_association" "privateass" {
+  subnet_id = aws_subnet.private.id
+  route_table_id = aws_route_table.private.id
+}
 # creation of securty group
 resource "aws_security_group" "allow_tls" {
    name = "allow tls"
@@ -86,7 +128,7 @@ resource "aws_security_group" "allow_tls" {
 
 # createion  of ec2 instance 
 resource "aws_instance" "name" {
-    ami = "ami-0d54604676873b4ec"
+    ami = "ami-0861f4e788f5069dd"
     instance_type = "t2.micro"
     subnet_id = aws_subnet.name.id
     vpc_security_group_ids = [aws_security_group.allow_tls.id]
