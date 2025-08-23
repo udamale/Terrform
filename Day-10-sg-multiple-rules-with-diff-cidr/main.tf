@@ -13,9 +13,6 @@ variable "allowed_port" {
       3389  = "10.0.1.0/24"
       3306  = "192.168.4.2/32"    #mysql (Restrict to office IP)
     }
-
-
-  
 }
 
 resource "aws_security_group" "name" {
