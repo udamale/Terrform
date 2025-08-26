@@ -57,7 +57,7 @@ resource "null_resource" "name" {
   provisioner "remote-exec" {
     inline = [ 
       "touch /home/ec2-user/ganesh.txt",
-      "echo 'welecome form me' >> /home/ec2-user/ganesh.txt"
+      "echo 'welecome form ganesh' >> /home/ec2-user/ganesh.txt"
      ]
   }
 
