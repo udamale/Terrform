@@ -11,18 +11,18 @@ resource "aws_s3_bucket" "lambda_bucket" {
 }
 
 # 2. Archive your local code into a zip
-data "archive_file" "lambda_zip" {
-  type        = "zip"
-  source_file = "app.py"        # or path to source directory
-  output_path = "lambda_deploy.zip"
-}
+# data "archive_file" "lambda_zip" {
+#   type        = "zip"
+#   source_file = "app.py"        # or path to source directory
+#   output_path = "lambda_deploy.zip"
+# }
 
 # 3. Upload the zipped code to S3
 resource "aws_s3_object" "lambda_zip_object" {
   bucket = aws_s3_bucket.lambda_bucket.id
-  key    = "lambda_deploy.zip"
-  source = data.archive_file.lambda_zip.output_path
-  etag = filemd5("lambda_deploy.zip")
+  key    = "app.zip"
+  source = "app.zip"
+  etag = filemd5("app.zip")
 
   # Exports a hash to detect updates
   # See below for usage
