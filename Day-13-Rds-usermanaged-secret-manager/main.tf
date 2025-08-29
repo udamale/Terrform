@@ -17,7 +17,7 @@ data "aws_subnet" "private_subnet" {
 }
 
 data "aws_secretsmanager_secret_version" "name" {
-  secret_id = "Rds_secret"
+  secret_id = "Rds_secret"    //you  can change here your secret id go to the secret manager and check the secret id
 }
 
 locals {
